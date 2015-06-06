@@ -5,12 +5,12 @@ if ( ! defined( 'WPINC' ) ) { die; }
 //These are the basic hook functions for setting up the layout. 
 
 
-class MYPLUGIN_pt_pcs{
+class GMEPLG_pt_pcs{
 
 	//General
 		//Title
 		public static function pc_title( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
 	    	$out .= "<h1>" . $post->post_title . "</h1>";
@@ -20,27 +20,23 @@ class MYPLUGIN_pt_pcs{
 
 		//Content
 		public static function pc_content( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
-	   		$out .= "<div class=' MYPLUGIN-content '>";
-		    			$out .= $post->post_content; 
+	   		$out .= "<div class=' GMEPLG-content '>";
+		    	$out .= str_replace("\r", "<br />", $post->post_content );
 		    $out .= "</div>";
 		
 			echo $out;
 		}
 
 		public static function pc_excerpt( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
-	   		$out .= "<div class=' MYPLUGIN-excerpt '>";
-	   			if ( $post->post_excerpt ) {
-	   				$out .= $post->post_excerpt; 
-	   			}else{
-	   				$out .= $post->post_content; 
-	   			}
-		    			
+	   		$out .= "<div class=' GMEPLG-excerpt '>";
+	   			$out .= get_the_excerpt();
+	   			$out .= " <a href='" . get_the_permalink( $post->ID ) . "' title='Read More'>Read More</a>";		    			
 		    $out .= "</div>";
 		
 			echo $out;
@@ -48,12 +44,12 @@ class MYPLUGIN_pt_pcs{
 
 		//Featured Image
 		public static function pc_fi( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
-		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    	$out .= "<div class='" . "GMEPLG-image" . "'>";
 		    		$out .= get_the_post_thumbnail( $post->ID, "full" ); 
 		    	$out .= "</div>";
 			}		
@@ -63,11 +59,11 @@ class MYPLUGIN_pt_pcs{
 
 		//Featured image, medium sized
 		public static function pc_fimed( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
-		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    	$out .= "<div class='" . "GMEPLG-image" . "'>";
 		    		$out .= get_the_post_thumbnail( $post->ID , "medium" ); 
 		    	$out .= "</div>";
 			}		
@@ -77,15 +73,15 @@ class MYPLUGIN_pt_pcs{
 
 		//Output unhidden meta
 		public static function pc_meta( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
-			$meta = MYPLUGIN_func::print_meta( $post->ID );
+			$meta = GMEPLG_func::print_meta( $post->ID );
 
 			$out = "";
 
 			//Check if there is actually any content, if not don't output.
 			if ( strlen( $meta ) > 10 ){
-		   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
+		   		$out .= "<div class='" . "GMEPLG-meta" . "'>";
 				$out .= $meta;
 			    $out .= "</div>";
 			}
@@ -95,14 +91,14 @@ class MYPLUGIN_pt_pcs{
 
 		//Output unhidden media
 		public static function pc_media( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
-			$media = MYPLUGIN_func::print_media( $post->ID );
+			$media = GMEPLG_func::print_media( $post->ID );
 
 			$out = "";
 
 			if ( strlen( $media ) > 29 ){
-		   		$out .= "<div class='" . "MYPLUGIN-media" . "'>";
+		   		$out .= "<div class='" . "GMEPLG-media" . "'>";
 				$out .= $media;
 			    $out .= "</div>";
 			}
@@ -112,7 +108,7 @@ class MYPLUGIN_pt_pcs{
 
 		//Output Categories
 		public static function pc_cats( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
 			$pc_values = get_object_taxonomies( $post->post_type );
@@ -127,9 +123,9 @@ class MYPLUGIN_pt_pcs{
 			}
 
 			if ($has_terms){
-		    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
+		    	$out .= "<div class='" . "GMEPLG-categories" . "'>";
 			    	foreach($pc_values as $tax){
-			    		$out .= MYPLUGIN_func::get_cats( $tax , $post->ID , $post->post_type );
+			    		$out .= GMEPLG_func::get_cats( $tax , $post->ID , $post->post_type );
 			    	}
 		    	$out .= "</div>";
 	    	}	
@@ -140,7 +136,7 @@ class MYPLUGIN_pt_pcs{
 	//Archive Versions
 		//Title hyperlinked
 		public static function pc_title_a( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
 			$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "'>";
@@ -152,12 +148,12 @@ class MYPLUGIN_pt_pcs{
 
 		//Featured Image
 		public static function pc_fi_a( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
-		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    	$out .= "<div class='" . "GMEPLG-image" . "'>";
 		    		$out .= "<a title='" . $post->post_title . "' href='" . 
 		    				get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>"; 
 
@@ -171,11 +167,11 @@ class MYPLUGIN_pt_pcs{
 
 		//Featured image, medium sized
 		public static function pc_fimed_a( $quer = null ){
-			$post = MYPLUGIN_func::get_post( $quer );
+			$post = GMEPLG_func::get_post( $quer );
 
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
-		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    	$out .= "<div class='" . "GMEPLG-image" . "'>";
 		    		$out .= "<a title='" . $post->post_title . "' href='" . 
 		    				get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>"; 
 		    				

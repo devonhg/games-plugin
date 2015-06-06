@@ -2,7 +2,7 @@
 if ( ! defined( 'WPINC' ) ) { die; }
 
 
-class MYPLUGIN_filter{
+class GMEPLG_filter{
 
 	public $pt;
 
@@ -19,12 +19,12 @@ class MYPLUGIN_filter{
 		if ( is_main_query() && !is_feed() && !is_home() && $post->post_type == $this->pt ){
 			if ( is_archive() ){
 				ob_start();
-				MYPLUGIN_pt_archive();
+				GMEPLG_pt_archive();
 				$out .= ob_get_clean(); 
 			}
 			else if ( is_single( $post->ID ) ){
 				ob_start();
-				MYPLUGIN_pt_single();
+				GMEPLG_pt_single();
 				$out .= ob_get_clean(); 
 			}else{
 				$out .= $content;

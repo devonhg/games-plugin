@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-class MYPLUGIN_dash_page {
+class GMEPLG_dash_page {
 
 	static $instances = array(); 
 
@@ -10,10 +10,10 @@ class MYPLUGIN_dash_page {
 	public $name_s; 
 
 	public function __construct( $name, $name_s ){
-		MYPLUGIN_dash_page::$instances[] = $this; 
+		GMEPLG_dash_page::$instances[] = $this; 
 		$this->name = $name;
 		$this->name_s = $name; 
-		$this->menu_pos = 82.1 + ( count( MYPLUGIN_dash_page::$instances )/10 );
+		$this->menu_pos = 82.1 + ( count( GMEPLG_dash_page::$instances )/10 );
 
 
 		add_action('admin_menu', array( $this, 'page_enqueue' ));
@@ -46,7 +46,7 @@ class MYPLUGIN_dash_page {
 
 			$out .= "<p>This is the informational page for the custom post-types on this site.</p>";
 
-			foreach( MYPLUGIN_post_type::$instances as $pt  ){
+			foreach( GMEPLG_post_type::$instances as $pt  ){
 
 				$out .= "<div style='padding: 25px' class='postbox'>";
 					//Title/Description Output
@@ -56,7 +56,7 @@ class MYPLUGIN_dash_page {
 					//Shortcodes Info Output
 						$out .= "<h2>Shortcodes</h2>";
 						$out .= "<hr>";
-						foreach ( MYPLUGIN_pt_sc::$instances as $sc ){
+						foreach ( GMEPLG_pt_sc::$instances as $sc ){
 							if ( $sc->par->name == $pt->name ){
 								$out .= "<div>";
 									$out .= "<h3>[" . $sc->name . "]</h3>";
@@ -72,12 +72,12 @@ class MYPLUGIN_dash_page {
 						$out .= "<h3>Main Information</h3>";
 						$out .= "<ul>";
 							$out .= "<li>Post-Type Slug: " . $pt->pt_slug . "</li>";
-							$out .= "<li>Plugin Slug: " . "MYPLUGIN</li>";
+							$out .= "<li>Plugin Slug: " . "GMEPLG</li>";
 						$out .= "</ul>";
 
 						$out .= "<h3>Meta</h3>";
 						$out .= "<ul>";
-							foreach( MYPLUGIN_pt_meta::$instances as $meta ){
+							foreach( GMEPLG_pt_meta::$instances as $meta ){
 								if ($meta->pt == $pt->pt_slug){
 									$out .= "<li>" . $meta->title . " Key: " . $meta->val_key . "</li>";
 								}
@@ -86,7 +86,7 @@ class MYPLUGIN_dash_page {
 
 						$out .= "<h3>Taxonomies</h3>";
 						$out .= "<ul>";
-							foreach( MYPLUGIN_pt_tax::$instances as $tax ){
+							foreach( GMEPLG_pt_tax::$instances as $tax ){
 								if ($tax->pt_slug == $pt->pt_slug){
 									$out .= "<li>" . $tax->name . " Slug: " . $tax->tax_slug . "</li>";
 								}

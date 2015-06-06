@@ -2,7 +2,7 @@
 if ( ! defined( 'WPINC' ) ) { die; }
 
 
-class MYPLUGIN_pt_meta {
+class GMEPLG_pt_meta {
 
 	static $instances = array(); 
 
@@ -43,7 +43,7 @@ class MYPLUGIN_pt_meta {
 		public function __construct($title, $desc, $pt, $hide = false , $type = "text", $options = null) {
 
 			//Add this instance to the global instance count. 
-			MYPLUGIN_pt_meta::$instances[] = $this; 
+			GMEPLG_pt_meta::$instances[] = $this; 
 
 			//Generate Properties
 				$valName = str_replace(" " , "-" , trim(strtolower($title)));
@@ -120,7 +120,7 @@ class MYPLUGIN_pt_meta {
 			            if ( in_array( $post_type, $post_types )) {
 							add_meta_box(
 								$this->id
-								,__( $this->title, 'myplugin_textdomain' )
+								,__( $this->title, 'GMEPLG_textdomain' )
 								,array( $this, 'render_meta_box_content' )
 								,$post_type
 								,'advanced'
@@ -130,7 +130,7 @@ class MYPLUGIN_pt_meta {
 		        }else{
 					add_meta_box(
 						$this->id
-						,__( $this->title, 'myplugin_textdomain' )
+						,__( $this->title, 'GMEPLG_textdomain' )
 						,array( $this, 'render_meta_box_content' )
 						,$this->pt
 						,'advanced'
@@ -191,7 +191,7 @@ class MYPLUGIN_pt_meta {
 
 			// Display the form, using the current value.
 			echo '<label for="' . $this->new_field . '">';
-			_e( "<sub>" . $this->desc . "</sub><br>" , 'myplugin_textdomain' );
+			_e( "<sub>" . $this->desc . "</sub><br>" , 'GMEPLG_textdomain' );
 			echo '</label> ';
 
 			if ( $this->type == "text" ){
@@ -245,7 +245,7 @@ class MYPLUGIN_pt_meta {
 	        	if ( $value == null ) { $value = ""; }; 
 	        	if ( $value !== ""){
 	        		echo "<div>";
-						echo MYPLUGIN_func::media_check( $value );
+						echo GMEPLG_func::media_check( $value );
 					echo "</div>";
 	        	}
 

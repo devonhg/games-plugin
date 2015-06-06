@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-class MYPLUGIN_pt_tax{
+class GMEPLG_pt_tax{
 
 	static $instances = array(); 
 
@@ -21,10 +21,10 @@ class MYPLUGIN_pt_tax{
         $this->tax_slug = "tax_" . trim(strtolower($name_s)) . "_" . substr($pt_slug, 3);
         $this->args = $args; 
 
-        MYPLUGIN_pt_tax::$instances[] = $this; 
+        GMEPLG_pt_tax::$instances[] = $this; 
 
         //Get Parent
-        foreach( MYPLUGIN_post_type::$instances as $inst ){
+        foreach( GMEPLG_post_type::$instances as $inst ){
         	if ( $inst->pt_slug == $this->pt_slug ){
         		$this->par = $inst; 
         		break; 

@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-class MYPLUGIN_pt_sc{
+class GMEPLG_pt_sc{
     
     static $instances = array(); 
 	public $pt;
@@ -12,7 +12,7 @@ class MYPLUGIN_pt_sc{
 
     public function __construct($pt, $par, $name, $desc, $query = array() ){
     
-        MYPLUGIN_pt_sc::$instances[] = $this; 
+        GMEPLG_pt_sc::$instances[] = $this; 
     	$this->pt = $pt;
         $this->par = $par; 
         $this->name = $name; 
@@ -36,7 +36,7 @@ class MYPLUGIN_pt_sc{
 
         //Set up Query Arrays
             $query_att = $this->query;
-            $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
+            $sc_att = GMEPLG_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
             $base_att = array( "post_type" => $this->pt );
 
             if ( $cats !== '' && isset( $query_att['tax_query'] ) ){
