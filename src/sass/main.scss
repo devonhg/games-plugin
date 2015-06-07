@@ -1,0 +1,9 @@
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+.GMEPLG-media ul{
+	@extend .row;
+
+	li:first-child{
+		@extend .col-xs-12;
+	}
+}
