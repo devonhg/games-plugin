@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -36,13 +36,15 @@ if ( ! defined( 'WPINC' ) ) { die; }
 //Modify Hooks
     $pt_games->remove_hook_single(); 
     $pt_games->add_hook_single( array("GMEPLG_pt_pcs",'pc_media') );
+    $pt_games->add_hook_single( array("GMEPLG_pt_pcs",'pc_meta') );
     $pt_games->add_hook_single( "GMEPLG_gamejolt" );
     $pt_games->add_hook_single( array("GMEPLG_pt_pcs",'pc_content') );
     $pt_games->add_hook_single( "GMEPLG_latest_news" );
 
     $pt_games->remove_hook_archive();
-    $pt_games->add_hook_archive( array("GMEPLG_pt_pcs",'pc_fi_a') );
-    $pt_games->add_hook_archive( array("GMEPLG_pt_pcs",'pc_excerpt') );
+    $pt_games->add_hook_sc( array("GMEPLG_pt_pcs",'pc_title_a') );
+    $pt_games->add_hook_sc( array("GMEPLG_pt_pcs",'pc_fi_a') );
+    $pt_games->add_hook_sc( array("GMEPLG_pt_pcs",'pc_excerpt') );
 
     $pt_games->remove_hook_sc();
     $pt_games->add_hook_sc( array("GMEPLG_pt_pcs",'pc_title_a') );
@@ -51,6 +53,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 //Add Meta
     $pt_games->reg_meta('Release Date', 'Specify the release date for this title.');
+    $pt_games->reg_meta('Development Status', 'Specify the development status of this title.');
     $pt_games_gj = $pt_games->reg_meta('GameJolt', 'The Gamejolt Link', true, 'link');
     $pt_games->reg_meta('Trailer', 'Link to the Trailer', false, 'media');
     $pt_games->reg_meta('Screenshot 1', 'Screenshot Image 1', false, 'media');
