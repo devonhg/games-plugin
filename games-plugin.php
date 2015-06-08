@@ -4,11 +4,12 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           v0.9.5
+ * Version:           v1.0.0
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * GitHub Plugin URI: https://github.com/devonhg/games-plugin.git
 
 	*IMPORTANT*
 	do a "find/replace" accross the directory for "GMEPLG" and replace
