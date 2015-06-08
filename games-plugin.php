@@ -122,13 +122,15 @@ function GMEPLG_gamejolt( $quer = null ){
 
     $link = $pt_games_gj->get_val(); 
 
-    $out = "<div class='GMEPLG-gj'>";
-        $out .= "<a title='Get the Game at Gamejolt' href='" . $link . "'>";
-            $out .= "<h1>Download " . $post->post_title . "</h1>";
-        $out .= "</a>";
-    $out .= "</div>";
+    if ( $link != "" ){
+        $out = "<div class='GMEPLG-gj'>";
+            $out .= "<a title='Get the Game at Gamejolt' href='" . $link . "'>";
+                $out .= "<h1>Download " . $post->post_title . "</h1>";
+            $out .= "</a>";
+        $out .= "</div>";
 
-    echo $out; 
+        echo $out; 
+    }
 }
 
 function GMEPLG_posted_on() {

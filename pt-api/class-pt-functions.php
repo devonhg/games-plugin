@@ -42,7 +42,9 @@ class GMEPLG_func{
 			foreach($pst_meta as $key){
 				if ( $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type == "media" ){
 					$link = $key->get_val();
-					$out .= "<li>" . GMEPLG_func::media_check( $link ) . "</li>";
+					if ( $link != "" ){
+						$out .= "<li>" . GMEPLG_func::media_check( $link ) . "</li>";
+					}
 				}
 			} 
 		$out .= "</ul>";
