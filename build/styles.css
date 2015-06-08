@@ -5683,6 +5683,9 @@ button.close {
   width: 100%;
   height: auto; }
 
+.GMEPLG-meta ul {
+  list-style: none; }
+
 /*==========  Non-Mobile First Method  ==========*/
 /* Large Devices, Wide Screens */
 /* Medium Devices, Desktops */
