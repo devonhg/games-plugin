@@ -1,9 +1,54 @@
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
 
+.p-def-lower-margin{
+	margin-bottom: 40px; 
+}
+
 .GMEPLG-media ul{
 	@extend .row;
 
 	li:first-child{
-		@extend .col-xs-12;
+		@extend .col-sm-12;
+		padding: 0;
+		img{
+			width: 100%;
+			height: auto; 
+		}
 	}
+
+	li:nth-child(2),
+	li:nth-child(3),
+	li:nth-child(4),
+	li:nth-child(5){
+		@extend .col-sm-6;
+		@extend .col-xs-12; 
+
+		height: 150px; 
+		overflow: hidden; 
+		display: block; 
+		margin-bottom: 10px; 
+
+		img{
+			width: 100%;
+			height: auto; 
+		}
+	}
+
+
 }
+
+.GMEPLG-media{
+	@extend .p-def-lower-margin;
+}
+
+.GMEPLG-gj{
+	@extend .p-def-lower-margin;
+	text-align: center;
+}
+
+.GMEPLG-news-img img{
+	width: 100%;
+	height: auto;  
+}
+
+@import "breakpoints";
