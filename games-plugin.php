@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           1.1.7
+ * Version:           1.1.8
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+

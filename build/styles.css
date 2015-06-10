@@ -5657,7 +5657,8 @@ button.close {
   margin-bottom: 40px; }
 
 .GMEPLG-media ul li:first-child {
-  padding: 0; }
+  padding: 0;
+  margin-bottom: 10px; }
   .GMEPLG-media ul li:first-child img {
     width: 100%;
     height: auto; }

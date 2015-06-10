@@ -10,6 +10,7 @@
 	li:first-child{
 		@extend .col-sm-12;
 		padding: 0;
+		margin-bottom: 10px; 
 		img{
 			width: 100%;
 			height: auto; 
