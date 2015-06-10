@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           1.1.6
+ * Version:           1.1.7
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -125,7 +125,7 @@ function GMEPLG_gamejolt( $quer = null ){
 
     if ( $link != "" ){
         $out = "<div class='GMEPLG-gj'>";
-            $out .= "<a title='Get the Game at Gamejolt' href='" . $link . "'>";
+            $out .= "<a target='_blank' title='Get the Game at Gamejolt' href='" . $link . "'>";
                 $out .= "<h1>Download " . $post->post_title . "</h1>";
             $out .= "</a>";
         $out .= "</div>";
