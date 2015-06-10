@@ -5653,7 +5653,7 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
-.p-def-lower-margin, .GMEPLG-media, .GMEPLG-gj {
+.p-def-lower-margin, .GMEPLG-gj {
   margin-bottom: 40px; }
 
 .GMEPLG-media ul li:first-child {
@@ -5676,6 +5676,9 @@ button.close {
   .GMEPLG-media ul li:nth-child(5) img {
     width: 100%;
     height: auto; }
+
+.GMEPLG-media {
+  margin-bottom: 15px; }
 
 .GMEPLG-gj {
   text-align: center; }
