@@ -5689,7 +5689,10 @@ button.close {
 
 .GMEPLG-meta ul {
   list-style: none;
-  text-align: center; }
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 15px; }
   .GMEPLG-meta ul label {
     width: 100%; }
   .GMEPLG-meta ul .meta-key {
