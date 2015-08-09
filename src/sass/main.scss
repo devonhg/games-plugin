@@ -54,6 +54,15 @@
 
 .GMEPLG-meta ul{
 	list-style: none; 
+	text-align: center; 
+
+	label{
+		width: 100%;
+	}
+
+	.meta-key{
+		font-size: 150%;
+	}
 }
 
 @import "breakpoints";

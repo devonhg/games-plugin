@@ -5688,7 +5688,12 @@ button.close {
   height: auto; }
 
 .GMEPLG-meta ul {
-  list-style: none; }
+  list-style: none;
+  text-align: center; }
+  .GMEPLG-meta ul label {
+    width: 100%; }
+  .GMEPLG-meta ul .meta-key {
+    font-size: 150%; }
 
 /*==========  Non-Mobile First Method  ==========*/
 /* Large Devices, Wide Screens */

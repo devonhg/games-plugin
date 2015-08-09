@@ -25,7 +25,7 @@ class GMEPLG_func{
 
 					$out .= "<li>";
 						$out .= "<label class='meta-key' >" . ucfirst( $key->title ) . "</label>";
-						$out .= ' : <label class="meta-value"> ' . $key->get_val() . '</label>';
+						$out .= ' <label class="meta-value"> ' . $key->get_val() . '</label>';
 					$out .= "</li>";
 				}
 			} 
