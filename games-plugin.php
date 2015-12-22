@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           2.0
+ * Version:           2.1
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -20,6 +20,16 @@ if ( ! defined( 'WPINC' ) ) { die; }
 	Plugin slug: GMEPLG
 
 */
+
+/**************************************
+*    Allow the uploading of Zip files
+**************************************/
+    add_filter('upload_mimes', 'allow_uploads_gmc');
+     
+    function allow_uploads_gmc( $existing_mimes ){
+      $existing_mimes['zip'] = 'application/zip';
+      return $existing_mimes;
+    }
 
 //Enqueue Style
     function GMEPLG_styles(){
