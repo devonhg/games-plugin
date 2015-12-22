@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           1.2.1
+ * Version:           2.0
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -41,6 +41,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
     $pt_games->add_hook_single( array("GMEPLG_pt_pcs",'pc_meta') );
     $pt_games->add_hook_single( "GMEPLG_gamejolt" );
     $pt_games->add_hook_single( array("GMEPLG_pt_pcs",'pc_content') );
+    //$pt_games->add_hook_single( "GMEPLG_paypal" );
     $pt_games->add_hook_single( "GMEPLG_latest_news" );
 
     $pt_games->remove_hook_archive();
@@ -125,7 +126,7 @@ function GMEPLG_gamejolt( $quer = null ){
 
     if ( $link != "" ){
         $out = "<div class='GMEPLG-gj'>";
-            $out .= "<a target='_blank' title='Get the Game at Gamejolt' href='" . $link . "'>";
+            $out .= "<a target='_blank' title='Get the Game!' href='" . $link . "'>";
                 $out .= "<h1>Download " . $post->post_title . "</h1>";
             $out .= "</a>";
         $out .= "</div>";
@@ -159,4 +160,103 @@ function GMEPLG_posted_on() {
 
     return '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
 
+}
+
+
+
+/************************
+* Extensions Post Type
+************************/
+    $pt_ext = new GMEPLG_post_type( "Extensions", "Extension", "This post-type tracks extensions developed by Play Frey Games." ); 
+
+
+//Modify Hooks
+    $pt_ext->remove_hook_single(); 
+    $pt_ext->add_hook_single( "GMEPLG_youtube" );
+    $pt_ext->add_hook_single( array("GMEPLG_pt_pcs",'pc_media') );
+    $pt_ext->add_hook_single( array("GMEPLG_pt_pcs",'pc_meta') );
+    $pt_ext->add_hook_single( array("GMEPLG_pt_pcs",'pc_content') );
+    $pt_ext->add_hook_single( "GMEPLG_download_ext" );
+    //$pt_ext->add_hook_single( "GMEPLG_paypal" );
+    $pt_ext->add_hook_single( "GMEPLG_latest_news" );
+
+//Register Meta
+    $pt_ext_dl = $pt_ext->reg_meta('File', 'The file download.', true, 'media');
+    $pt_ext_yt = $pt_ext->reg_meta('Youtube Video Link', 'Link to the youtube video.', true, 'link');
+
+//Functions
+    function GMEPLG_paypal( $quer = null ){
+        $post = GMEPLG_func::get_post( $quer );
+        ?>
+            <div class='paypal-donations'>
+                <h2>Do you like this?</h2>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="B9Q3ESP947GFY">
+                        <input type="hidden" name="on0" value="Buy me some coffee">
+                        <span class='paypal-text'>Show your support! Buy me some coffee.</span><br>
+                        <select name="os0">
+                            <option value="One Cup ( Yay! )">One Cup ( Yay! ) $1.00 USD</option>
+                            <option value="Espresso ( Whoohoo! )">Espresso ( Whoohoo! ) $5.00 USD</option>
+                            <option value="2 Espressos ( I can handle it )">2 Espressos ( I can handle it ) $10.00 USD</option>
+                            <option value="4 Espressos ( Hands shaking )">4 Espressos ( Hands shaking ) $20.00 USD</option>
+                            <option value="10 Espressos ( I can see sound )">10 Espressos ( I can see sound ) $50.00 USD</option>
+                        </select> </td></tr>
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input class='paypal-submit' type="submit" value='Buy Me Coffee'  border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <!--<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">-->
+                </form>
+                <div class='paypal-social'>
+                    <span>Or hit me up on social media.</span>
+                    <a title='Find me on Facebook!' target='_blank' href='https://www.facebook.com/dhgodfrey' class='paypal-social-button'><i class="fa fa-facebook-official fa-5x"></i></a>
+                    <a title='Send a tweet!' target='_blank' href='https://twitter.com/PlayFreyGames' class='paypal-social-button'><i class="fa fa-twitter-square fa-5x"></i></a>
+                </div>
+            </div>
+        <?php
+    }
+
+    function GMEPLG_youtube( $quer = null ){
+        $post = GMEPLG_func::get_post( $quer );
+        global $pt_ext_yt; 
+
+        $url_string = $pt_ext_yt->get_val();
+        $p = parse_url( $url_string );
+        $dom = "https://www.youtube.com/embed/";
+
+        //If a single youtube Video
+        if ( strpos($url_string,'list') == false){
+            if( isset($p['fragment']) ){
+                $link = substr( $p['query'], 2 )  . substr( $p['fragment'], 12 );
+                $link = str_replace( '&', '?', $link );
+            }else{
+                $link = substr( $p['query'], 2 ); 
+            }
+        }else{//If it's a playlist
+            $link = 'videoseries?' . $p['query'];
+        }
+
+        $o = "";
+        if( $link != "" ){
+            $o .= "<div class='youtube_vid'>";
+                $o .= "<iframe width='560' height='349' class='yt-vid' src='" . $dom . $link . "' frameborder='0' allowfullscreen></iframe>";
+            $o .= "</div>";
+        }
+        echo $o;  
+    }
+
+    function GMEPLG_download_ext( $quer = null ){
+    $post = GMEPLG_func::get_post( $quer );
+    global $pt_ext_dl;
+
+    $link = $pt_ext_dl->get_val(); 
+
+    if ( $link != "" ){
+        $out = "<div class='GMEPLG-gj'>";
+            $out .= "<a target='_blank' title='Get the Game!' href='" . $link . "'>";
+                $out .= "<h1>Download " . $post->post_title . "</h1>";
+            $out .= "</a>";
+        $out .= "</div>";
+
+        echo $out; 
+    }
 }
