@@ -160,7 +160,7 @@ class GMEPLG_pt_pcs{
 		    		$out .= "<a title='" . $post->post_title . "' href='" . 
 		    				get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>"; 
 
-		    			$out .= get_the_post_thumbnail( $post->ID );
+		    			$out .= get_the_post_thumbnail( $post->ID, "full" );
 		    		$out .= "</a>";
 		    	$out .= "</div>";
 			}		

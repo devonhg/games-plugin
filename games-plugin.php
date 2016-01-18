@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Games Plugin
  * Plugin URI:        dhgodfrey.net
  * Description:       This plugin is designed to track games developed.
- * Version:           2.1.2
+ * Version:           2.1.3
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -189,6 +189,17 @@ function GMEPLG_posted_on() {
     $pt_ext->add_hook_single( array("GMEPLG_pt_pcs",'pc_content') );
     //$pt_ext->add_hook_single( "GMEPLG_paypal" );
     $pt_ext->add_hook_single( "GMEPLG_latest_news" );
+
+
+    $pt_ext->remove_hook_archive();
+    $pt_ext->add_hook_sc( array("GMEPLG_pt_pcs",'pc_title_a') );
+    $pt_ext->add_hook_sc( array("GMEPLG_pt_pcs",'pc_fi_a') );
+    $pt_ext->add_hook_sc( array("GMEPLG_pt_pcs",'pc_excerpt') );
+
+    $pt_ext->remove_hook_sc();
+    $pt_ext->add_hook_sc( array("GMEPLG_pt_pcs",'pc_title_a') );
+    $pt_ext->add_hook_sc( array("GMEPLG_pt_pcs",'pc_fi_a') );
+    $pt_ext->add_hook_sc( array("GMEPLG_pt_pcs",'pc_excerpt') );
 
 //Register Meta
     $pt_ext_dl = $pt_ext->reg_meta('File', 'The file download.', true, 'media');
